@@ -273,7 +273,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.log:
-        user_log_dir = Path('user_session_logs/mturk')
+        user_log_dir = Path('/home/oai/share/mturk')
         user_log_dir.mkdir(parents=True, exist_ok=True)
     SHOW_ATTRS_TAB = args.attrs
 
