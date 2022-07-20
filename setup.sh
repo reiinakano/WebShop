@@ -44,6 +44,8 @@ fi
 gdown https://drive.google.com/uc?id=14Kb5SPBk_jfdLZ_CDBNitW98QLDlKR5O # items_human_ins
 cd ..
 
+python -m web_agent_site.convert_image_urls_to_proxy
+
 # Download spaCy large NLP model
 python -m spacy download en_core_web_lg
 
