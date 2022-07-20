@@ -69,7 +69,8 @@ def index(session_id):
         for goal in goals:
             if goal['uuid'] in goal_uuid_to_goal:
                 if goal == goal_uuid_to_goal[goal['uuid']]:
-                    print(f"Duplicate goal: {goal}")
+                    #print(f"Duplicate goal: {goal}")
+                    pass
                 else:
                     print(f"Duplicate uuid: {goal} and {goal_uuid_to_goal[goal['uuid']]}")
             else:
