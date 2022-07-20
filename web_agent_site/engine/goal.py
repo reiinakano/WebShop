@@ -53,11 +53,12 @@ def get_human_goals(all_products, product_prices):
                 'query': item['query'],
                 'name': item['name'],
                 'product_category': item['product_category'],
+                'original_instruction': product['instruction'],
                 'instruction_text': product['instruction'].strip('.') + price_text,
                 'attributes': attributes,
                 'price_upper': price_upper,
                 'goal_options': product['instruction_options'],
-                'uuid': generate_mturk_code(asin + product['instruction'].strip('.'))[:8],
+                'uuid': generate_mturk_code(asin + product['instruction'])[:8],
             })
             for att in attributes:
                 cnt_atts[att] += 1
