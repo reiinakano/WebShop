@@ -21,17 +21,16 @@ if __name__ == "__main__":
     goals = get_goals(all_products, product_prices)
 
     goals = [{"uuid": g["uuid"],
-              "instruction_text": g["instruction_text"],
-              "original_instruction": g["original_instruction"]} for g in goals]
+              "instruction_text": g["instruction_text"]} for g in goals]
 
-    goal_uuid_to_goal = {}
-    for goal in goals:
-        if goal["uuid"] in goal_uuid_to_goal and goal["original_instruction"] != goal_uuid_to_goal[goal["uuid"]]["original_instruction"]:
-            print("Found collision")
-            print(f"{goal['instruction_text']}")
-            print(f"{goal_uuid_to_goal[goal['uuid']]['instruction_text']}")
-        else:
-            goal_uuid_to_goal[goal["uuid"]] = goal
+    # goal_uuid_to_goal = {}
+    # for goal in goals:
+    #     if goal["uuid"] in goal_uuid_to_goal and goal["original_instruction"] != goal_uuid_to_goal[goal["uuid"]]["original_instruction"]:
+    #         print("Found collision")
+    #         print(f"{goal['instruction_text']}")
+    #         print(f"{goal_uuid_to_goal[goal['uuid']]['instruction_text']}")
+    #     else:
+    #         goal_uuid_to_goal[goal["uuid"]] = goal
 
     # Remove duplicates based on uuid
     goal_uuid_to_goal = {goal["uuid"]: goal for goal in goals}
