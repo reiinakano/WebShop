@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # Split goals into train, dev, and test splits
     random.seed(233)
     random.shuffle(goals)
-    num_train_goals = 10_400
+    num_train_goals = 10_089
     num_dev_goals = 1000
     train_goals = goals[:num_train_goals]
     dev_goals = goals[num_train_goals:num_train_goals + num_dev_goals]
