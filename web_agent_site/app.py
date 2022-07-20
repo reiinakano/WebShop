@@ -64,21 +64,8 @@ def index(session_id):
         search_engine = init_search_engine(num_products=DEBUG_PROD_SIZE)
         goals = get_goals(all_products, product_prices)
 
-        # print duplicate goal['uuid']
-        goal_uuid_to_goal = {}
-        for goal in goals:
-            if goal['uuid'] in goal_uuid_to_goal:
-                if goal == goal_uuid_to_goal[goal['uuid']]:
-                    #print(f"Duplicate goal: {goal}")
-                    pass
-                else:
-                    print(f"Duplicate uuid: {goal} and {goal_uuid_to_goal[goal['uuid']]}")
-            else:
-                goal_uuid_to_goal[goal['uuid']] = goal
-
         goal_uuid_to_goal = {goal["uuid"]: goal for goal in goals}
-        assert len(goals) == len(goal_uuid_to_goal), f"len(goals)={len(goals)}, len(goal_uuid_to_goal)={len(goal_uuid_to_goal)}"
-        print(f"Loaded {len(goals)} goals")
+        print(f"Found {len(goals) - len(goal_uuid_to_goal)} / {len(goals)} duplicates. Total {len(goal_uuid_to_goal)} goals")
         print([goal["uuid"] for goal in goals[:10]])
         random.seed(233)
         random.shuffle(goals)
