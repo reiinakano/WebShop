@@ -22,6 +22,11 @@ if __name__ == "__main__":
 
     goals = [{"uuid": g["uuid"], "instruction_text": g["instruction_text"]} for g in goals]
 
+    # Remove duplicates based on uuid
+    goal_uuid_to_goal = {goal["uuid"]: goal for goal in goals}
+    print(f"Found {len(goals) - len(goal_uuid_to_goal)} / {len(goals)} duplicates. Total {len(goal_uuid_to_goal)} goals")
+    goals = list(goal_uuid_to_goal.values())
+
     # Split goals into train, dev, and test splits
     random.seed(233)
     random.shuffle(goals)
