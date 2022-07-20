@@ -22,6 +22,15 @@ if __name__ == "__main__":
 
     goals = [{"uuid": g["uuid"], "instruction_text": g["instruction_text"]} for g in goals]
 
+    goal_uuid_to_goal = {}
+    for goal in goals:
+        if goal["uuid"] in goal_uuid_to_goal and goal["instruction_text"] != goal_uuid_to_goal[goal["uuid"]]["instruction_text"]:
+            print("Found collision")
+            print(f"{goal['instruction_text']}")
+            print(f"{goal_uuid_to_goal[goal['uuid']]['instruction_text']}")
+        else:
+            goal_uuid_to_goal[goal["uuid"]] = goal
+
     # Remove duplicates based on uuid
     goal_uuid_to_goal = {goal["uuid"]: goal for goal in goals}
     print(f"Found {len(goals) - len(goal_uuid_to_goal)} / {len(goals)} duplicates. Total {len(goal_uuid_to_goal)} goals")
