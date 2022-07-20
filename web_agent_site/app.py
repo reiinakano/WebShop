@@ -36,6 +36,7 @@ product_item_dict = None
 product_prices = None
 attribute_to_asins = None
 goals = None
+goal_uuid_to_goal = None
 weights = None
 
 user_sessions = dict()
@@ -52,7 +53,7 @@ def index(session_id):
     global all_products, product_item_dict, \
            product_prices, attribute_to_asins, \
            search_engine, \
-           goals, weights, user_sessions
+           goals, goal_uuid_to_goal, weights, user_sessions
 
     if search_engine is None:
         all_products, product_item_dict, product_prices, attribute_to_asins = \
@@ -62,11 +63,22 @@ def index(session_id):
             )
         search_engine = init_search_engine(num_products=DEBUG_PROD_SIZE)
         goals = get_goals(all_products, product_prices)
+        goal_uuid_to_goal = {goal["uuid"]: goal for goal in goals}
+        assert len(goals) == len(goal_uuid_to_goal)
+        print(f"Loaded {len(goals)} goals")
+        print([goal["uuid"] for goal in goals[:10]])
         random.seed(233)
         random.shuffle(goals)
         weights = [goal['weight'] for goal in goals]
 
-    if session_id not in user_sessions and 'fixed' in session_id:
+    if session_id not in user_sessions and 'uuid' in session_id:
+        goal_uuid = session_id.split('_')[-1]
+        goal = goal_uuid_to_goal[goal_uuid]
+        instruction_text = goal['instruction_text']
+        user_sessions[session_id] = {'goal': goal, 'done': False}
+        if user_log_dir is not None:
+            setup_logger(session_id, user_log_dir)
+    elif session_id not in user_sessions and 'fixed' in session_id:
         goal_dix = int(session_id.split('_')[-1])
         goal = goals[goal_dix]
         instruction_text = goal['instruction_text']

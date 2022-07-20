@@ -8,6 +8,7 @@ from collections import defaultdict
 from rich import print
 from thefuzz import fuzz
 from web_agent_site.engine.normalize import normalize_color
+from web_agent_site.utils import generate_mturk_code
 
 nlp = spacy.load("en_core_web_lg")
 
@@ -55,6 +56,7 @@ def get_human_goals(all_products, product_prices):
                 'attributes': attributes,
                 'price_upper': price_upper,
                 'goal_options': product['instruction_options'],
+                'uuid': generate_mturk_code(asin + product['instruction'].strip('.') + price_text)[:6],
             })
             for att in attributes:
                 cnt_atts[att] += 1
