@@ -65,6 +65,7 @@ def index(session_id):
         goals = get_goals(all_products, product_prices)
 
         # print duplicate goal['uuid']
+        goal_uuid_to_goal = {}
         for goal in goals:
             if goal['uuid'] in goal_uuid_to_goal:
                 print(f"Duplicate goal['uuid']")
