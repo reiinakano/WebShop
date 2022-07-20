@@ -19,8 +19,9 @@ def get_goals(all_products, product_prices, human_goals=True):
         return get_human_goals(all_products, product_prices)
     else:
         return get_synthetic_goals(all_products, product_prices)
-    
+
 def get_human_goals(all_products, product_prices):
+    randomizer = random.Random(233)
     goals = []
     cnt_atts = defaultdict(int)
     cnt = 0
@@ -37,7 +38,7 @@ def get_human_goals(all_products, product_prices):
                 price = product_prices[asin]
                 price_range = [p for p in PRICE_RANGE if p > price][:4]
                 if len(price_range) >= 2:
-                    _, price_upper = sorted(random.sample(price_range, 2))
+                    _, price_upper = sorted(randomizer.sample(price_range, 2))
                     price_text = \
                         f', and price lower than {price_upper:.2f} dollars'
                 else:
@@ -56,7 +57,7 @@ def get_human_goals(all_products, product_prices):
                 'attributes': attributes,
                 'price_upper': price_upper,
                 'goal_options': product['instruction_options'],
-                'uuid': generate_mturk_code(asin + product['instruction'].strip('.') + price_text)[:8],
+                'uuid': generate_mturk_code(asin + product['instruction'].strip('.'))[:8],
             })
             for att in attributes:
                 cnt_atts[att] += 1

@@ -178,6 +178,7 @@ def get_product_per_page(top_n_products, page):
 
 
 def generate_product_prices(all_products):
+    randomizer = random.Random(233)
     product_prices = dict()
     for product in all_products:
         asin = product['asin']
@@ -187,7 +188,7 @@ def generate_product_prices(all_products):
         elif len(pricing) == 1:
             price = pricing[0]
         else:
-            price = random.uniform(*pricing[:2])
+            price = randomizer.uniform(*pricing[:2])
         product_prices[asin] = price
     return product_prices
 
