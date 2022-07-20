@@ -1,4 +1,5 @@
 import json
+import random
 from web_agent_site.engine.engine import (
     load_products,
     init_search_engine,
